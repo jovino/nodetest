@@ -1,0 +1,92 @@
+
+<div flex layout="row">
+
+
+	 <md-sidenav
+        class="md-sidenav-left"
+        md-component-id="left"
+        md-is-locked-open="$mdMedia('gt-md')"
+        md-disable-backdrop
+        md-whiteframe="z2">
+
+	  
+      <md-content >
+		  <md-list flex>
+        <md-list-item   ng-click="actionCreate()" >
+				<md-button>
+       <md-icon md-font-set="material-icons"> add_box </md-icon>
+      Add new {{collectionName}}
+				</md-button>
+				<md-divider></md-divider>
+        </md-list-item>
+        <md-list-item   ng-click="actionList()" >
+			<md-button>
+			       <md-icon md-font-set="material-icons"> view_list </md-icon>
+		 					 List of {{collectionName}}
+			</md-button>
+			  
+        </md-list-item>
+		  </md-list>
+      </md-content>
+    </md-sidenav>
+
+
+	<div ng-show="message" class="alert alert-success" role="alert">{{message}}</div>
+  <md-content >
+	<md-table-container id="list" class="panel-body" ng-show="viewMode == 'list'">
+		<table  md-table md-row-select  ng-model="selected" >
+			<thead md-head>	
+				<tr md-row>
+					<th md-column  ng-repeat="header in list.config.headers">{{header.label}}</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody md-body>
+			<tr md-row ng-repeat="row in list.rows">
+
+				<td md-cell ng-repeat="header in list.config.headers">
+				{{row[header.name]}}
+				</td>
+
+				<td md-cell >
+					<span class="pull-right">
+						<a href="" ng-click="actionDetails(row._id)" type="button" class="btn btn-success btn-sm">details</a>
+						<a href="" ng-click="actionRemove(row._id)" type="button" class="btn btn-danger btn-sm">remove</a>
+					</span>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</md-table-container>
+  </md-content>
+		 <md-content   ng-show="viewMode == 'details'" layout="row" layout-padding>
+			 	<div>
+					 <form name="formCreate">
+						<md-input-container class="md-block md-input-has-placeholder" flex  ng-repeat="field in details.fields" >
+							
+								<label for="field.name" ng-show="field.type != 'hidden'">{{field.label}}</label>
+						
+							<templatedfield  field="field.name" type="field.type" model="details.document[field.name]"></templatedfield>
+						</md-input-container>
+					 </form>
+			 	</div>
+		 </md-content>
+		<a href="" ng-click="actionUpdate()" type="button" class="btn btn-success btn-sm">Update {{collectionName}}</a>
+
+	
+		 <md-content   ng-show="viewMode == 'create'" layout="row" layout-padding>
+			 	<div>
+					 <form name="formCreate">
+						<md-input-container class="md-block" flex  ng-repeat="field in details.fields" >
+							
+								<label ng-show="field.type != 'hidden'">{{field.label}}</label>
+								<input type="{{field.type}}" ng-model="details.document[field.name]" class="form-control"/>
+							
+						</md-input-container>
+					 </form>
+			 	</div>
+		 </md-content>
+		<a href="" ng-click="actionSave()" type="button" class="btn btn-success btn-sm">Save new {{collectionName}}</a>
+	</div>
+
+</div>
