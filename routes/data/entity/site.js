@@ -29,8 +29,8 @@ module.exports.form = [
     },
       {
         "name": "html",
-        "type": "code",
-        "label": "Html"
+        "type": "file",
+        "label": "Layout"
     }
 ];
  

@@ -1,11 +1,14 @@
 var express = require('express');
- 
-var Entity = require('./entityManager');
+ var _ = require('lodash');
+var fs = require('fs');
+var path = require('path');
+
+var Entity = require('./data/entityManager');
  
 module.exports.init = function () {
  
     var routerApi = express.Router();
- 
+
     // CREATE NEW ITEM
     routerApi.route('/:collectionName').post(function (req, res) {
  
